@@ -1,0 +1,7 @@
+imports:
+    - { resource: config.yml }
+
+jantao_dev_sitemap:
+    hosts:
+        - foo.com
+        - bar.com

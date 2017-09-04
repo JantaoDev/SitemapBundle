@@ -1,0 +1,3 @@
+jantao_dev_sitemap:
+    resource: "@JantaoDevSitemapBundle/Resources/config/routing.xml"
+    prefix:   /

@@ -1,0 +1,23 @@
+framework:
+    secret:          secret_word
+    router:          { resource: "%kernel.root_dir%/routing.yml" }
+    test:            ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    session:
+        storage_id: session.storage.filesystem
+
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     ~
+        port:     ~
+        dbname:   ~
+        user:     ~
+        password: ~
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
