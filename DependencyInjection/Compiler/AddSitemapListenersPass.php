@@ -8,6 +8,7 @@ namespace JantaoDev\SitemapBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use JantaoDev\SitemapBundle\Event\SitemapGenerateEvent;
 
 /**
@@ -33,7 +34,7 @@ class AddSitemapListenersPass implements CompilerPassInterface
             if (!$reflectionClass->implementsInterface('JantaoDev\SitemapBundle\Service\SitemapListenerInterface')) {
                 throw new \InvalidArgumentException("Service $id must implement interface JantaoDev\SitemapBundle\Service\SitemapListenerInterface");
             }
-            $eventDispatcher->addMethodCall('addListenerService', [SitemapGenerateEvent::ON_SITEMAP_GENERATE, [$id, 'generateSitemap']]);
+            $eventDispatcher->addMethodCall('addListener', [SitemapGenerateEvent::ON_SITEMAP_GENERATE, [new Reference($id), 'generateSitemap']]);
         }
     }
     

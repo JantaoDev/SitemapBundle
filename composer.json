@@ -12,12 +12,17 @@
     ],
     "require": {
         "php": ">=5.6",
-        "symfony/symfony": "^2.8|^3.0",
+        "symfony/framework-bundle": "^2.8|^3.0",
+        "symfony/yaml": "*",
         "doctrine/orm": "^2.4",
         "doctrine/doctrine-bundle": "^1.4"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^2.7|^3.0"
+        "symfony/phpunit-bridge": "^2.7|^3.0",
+        "symfony/security-csrf": "*",
+        "symfony/form": "*",
+        "symfony/validator": "*",
+        "symfony/browser-kit": "*"
     },
     "autoload": {
         "psr-4": { "JantaoDev\\SitemapBundle\\": "" }
