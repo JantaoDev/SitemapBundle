@@ -16,7 +16,7 @@
             <argument><!--jantao_dev_sitemap.sitemap--></argument>
             <tag name="jantao_dev.sitemap.listener" />
         </service>
-        <service id="jantao_dev.sitemap" class="JantaoDev\SitemapBundle\Service\SitemapService">
+        <service id="jantao_dev.sitemap" class="JantaoDev\SitemapBundle\Service\SitemapService" public="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="router" />
             <argument><!--jantao_dev_sitemap.hosts--></argument>
