@@ -6,7 +6,7 @@
 
 namespace JantaoDev\SitemapBundle\Tests\Sitemap;
 
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use JantaoDev\SitemapBundle\Sitemap\Host;
 use JantaoDev\SitemapBundle\Exception\FileSavedException;
 use JantaoDev\SitemapBundle\Sitemap\RobotsFile;
@@ -53,9 +53,9 @@ class RobotsFileTest extends TestCase
     }
     
     
-    protected function setUp()
+    protected function setUp():void
     {
-        $this->webDir = realpath(__DIR__.'/../web').'/';
+        $this->webDir = realpath(__DIR__ . '/../public').'/';
         $this->host = $this->createMock(Host::class);
         $this->host->method('getHost')->willReturn('foo.com');
         $this->host->method('getHostWithScheme')->willReturn('http://foo.com');
@@ -63,7 +63,7 @@ class RobotsFileTest extends TestCase
         $this->clearWebDir();
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         parent::tearDown();
         $this->clearWebDir();

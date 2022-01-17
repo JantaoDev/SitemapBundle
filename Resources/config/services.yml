@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  JantaoDev\SitemapBundle\Command\GenerateCommand: ~
+  JantaoDev\SitemapBundle\Controller\RobotsFileController: ~
+  JantaoDev\SitemapBundle\EventListener\RouteAnnotationListener:
+    tags: ['jantao_dev.sitemap.listener']
+  JantaoDev\SitemapBundle\EventListener\ConfigSitemapListener:
+    tags: ['jantao_dev.sitemap.listener']
+  JantaoDev\SitemapBundle\Service\SitemapService: ~
+  jantao_dev.sitemap:
+    alias: 'JantaoDev\SitemapBundle\Service\SitemapService'

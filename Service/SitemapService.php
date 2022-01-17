@@ -87,7 +87,7 @@ class SitemapService
             $sitemap = new Sitemap($host);
             $this->configureRobotsFile($sitemap->getRobotsFile());
             $event = new SitemapGenerateEvent($sitemap);
-            $this->eventDispatcher->dispatch(SitemapGenerateEvent::ON_SITEMAP_GENERATE, $event);
+            $this->eventDispatcher->dispatch($event, SitemapGenerateEvent::ON_SITEMAP_GENERATE);
             $sitemap->save($this->webDir, $this->gzip, $postfix);
         }
     }

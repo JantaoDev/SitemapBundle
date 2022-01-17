@@ -1,5 +1,6 @@
 {
     "name": "jantaodev/sitemap-bundle",
+    "version": "0.2",
     "description": "Symfony bundle that provides sitemap XML generation",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -11,25 +12,31 @@
         }
     ],
     "require": {
-        "php": ">=5.6",
-        "symfony/framework-bundle": "^2.8|^3.0|^4.0",
+        "php": ">=7.2.5",
+        "symfony/framework-bundle": "^5.0",
         "symfony/yaml": "*",
-        "doctrine/orm": "^2.4",
-        "doctrine/doctrine-bundle": "^1.4"
+        "doctrine/orm": "^2.7",
+        "doctrine/doctrine-bundle": "^2.0",
+        "ext-json": "*"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^2.7|^3.0|^4.0",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/security-csrf": "*",
         "symfony/form": "*",
         "symfony/validator": "*",
-        "symfony/browser-kit": "*"
+        "symfony/browser-kit": "*",
+        "symfony/mime": "*"
     },
     "autoload": {
         "psr-4": { "JantaoDev\\SitemapBundle\\": "" }
     },
+    "scripts": {
+        "test" : "./vendor/bin/simple-phpunit"
+    },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.*-dev"
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.0.*"
         }
     }
 }

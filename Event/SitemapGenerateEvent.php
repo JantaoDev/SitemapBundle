@@ -6,7 +6,7 @@
 
 namespace JantaoDev\SitemapBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use JantaoDev\SitemapBundle\Sitemap\SitemapInterface;
 
 /**
@@ -17,9 +17,6 @@ use JantaoDev\SitemapBundle\Sitemap\SitemapInterface;
 class SitemapGenerateEvent extends Event
 {
     
-    /**
-     * @Event("JantaoDev\SitemapBundle\Event\SitemapGenerateEvent")
-     */
     const ON_SITEMAP_GENERATE = 'jantao_dev.sitemap.generate';
     
     /**
@@ -40,7 +37,7 @@ class SitemapGenerateEvent extends Event
      * 
      * @return SitemapInterface
      */
-    public function getSitemap()
+    public function getSitemap(): SitemapInterface
     {
         return $this->sitemap;
     }

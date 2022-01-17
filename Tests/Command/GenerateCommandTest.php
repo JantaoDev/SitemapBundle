@@ -7,9 +7,6 @@
 namespace JantaoDev\SitemapBundle\Tests\Command;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use JantaoDev\SitemapBundle\Service\SitemapService;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use JantaoDev\SitemapBundle\Event\SitemapGenerateEvent;
@@ -20,10 +17,10 @@ class GenerateCommandTest extends WebTestCase
     
     protected $webDir;
     
-    protected function setUp()
+    protected function setUp():void
     {
         $client = static::createClient();
-        $this->webDir = realpath(__DIR__.'/../web').'/';
+        $this->webDir = realpath(__DIR__ . '/../public').'/';
         $this->clearWebDir();
         static::$kernel->getContainer()->get('event_dispatcher')->addListener(
             SitemapGenerateEvent::ON_SITEMAP_GENERATE,
@@ -34,7 +31,7 @@ class GenerateCommandTest extends WebTestCase
         );
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         parent::tearDown();
         $this->clearWebDir();

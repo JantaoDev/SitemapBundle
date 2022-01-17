@@ -20,15 +20,12 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('jantao_dev_sitemap');
-        
+        $treeBuilder = new TreeBuilder('jantao_dev_sitemap');
+        $rootNode = $treeBuilder->getRootNode();
+
         $rootNode
-            /*->fixXmlConfig('allow')
-            ->fixXmlConfig('disallow')
-            ->fixXmlConfig('clean_param')*/
             ->children()
                 ->arrayNode('hosts')
                     ->prototype('scalar')->end()
@@ -44,7 +41,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultNull()
                 ->end()
                 ->scalarNode('web_dir')
-                    ->defaultValue('%kernel.root_dir%/../web')
+                    ->defaultValue('%kernel.project_dir%/public')
                 ->end()
                 ->booleanNode('gzip')
                     ->defaultFalse()

@@ -6,16 +6,17 @@
 
 namespace JantaoDev\SitemapBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Switching robots.txt files for several hosts
  * 
  * @author Sergey Hayevoy <jantao.dev@gmail.com>
  */
-class RobotsFileController extends Controller
+class RobotsFileController extends AbstractController
 {
     
     /**
@@ -23,9 +24,9 @@ class RobotsFileController extends Controller
      * 
      * @param Request $request
      * @return BinaryFileResponse
-     * @throws NotFoundException
+     * @throws NotFoundHttpException
      */
-    public function indexAction(Request $request)
+    public function index(Request $request): BinaryFileResponse
     {
         $hosts = $this->getParameter('jantao_dev_sitemap.hosts');
         $webDir = rtrim($this->getParameter('jantao_dev_sitemap.web_dir'), '/');
@@ -44,5 +45,5 @@ class RobotsFileController extends Controller
             throw $this->createNotFoundException('robots.txt not found');
         }
     }
-    
+
 }

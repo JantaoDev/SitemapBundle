@@ -6,21 +6,27 @@
 
 namespace JantaoDev\SitemapBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use JantaoDev\SitemapBundle\Service\SitemapService;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Sensio\Bundle\GeneratorBundle\Command\Helper\QuestionHelper;
 
 /**
  * Sitemap generation command
  * 
  * @author Sergey Hayevoy <jantao.dev@gmail.com>
  */
-class GenerateCommand extends ContainerAwareCommand
+class GenerateCommand extends Command
 {
+
+    protected $generator;
+
+    public function __construct(SitemapService $generator)
+    {
+        parent::__construct();
+        $this->generator = $generator;
+    }
+
 
     /**
      * @inheritdoc
@@ -37,11 +43,12 @@ EOF
     /**
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->write('Generating sitemap...');
-        $this->getContainer()->get('jantao_dev.sitemap')->generate();
+        $this->generator->generate();
         $output->writeln('ok');
+        return Command::SUCCESS;
     }
 
 }

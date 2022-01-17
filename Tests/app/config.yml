@@ -1,12 +1,13 @@
 framework:
     secret:          secret_word
-    router:          { resource: "%kernel.root_dir%/routing.yml" }
+    router:          { resource: "%kernel.project_dir%/Tests/app/routing.yml", utf8: true }
     test:            ~
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
     session:
         storage_id: session.storage.filesystem
+    property_access: ~
 
 doctrine:
     dbal:
@@ -21,3 +22,6 @@ doctrine:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+jantao_dev_sitemap:
+    web_dir: '%kernel.project_dir%/Tests/public'

@@ -6,7 +6,7 @@
 
 namespace JantaoDev\SitemapBundle\Tests\Sitemap;
 
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use JantaoDev\SitemapBundle\Sitemap\Host;
 use JantaoDev\SitemapBundle\Sitemap\Url;
 use JantaoDev\SitemapBundle\Sitemap\Sitemap;
@@ -17,9 +17,9 @@ class SitemapTest extends TestCase
     protected $host;
     protected $url;
     
-    protected function setUp()
+    protected function setUp():void
     {
-        $this->webDir = realpath(__DIR__.'/../web').'/';
+        $this->webDir = realpath(__DIR__ . '/../public').'/';
         $this->host = $this->createMock(Host::class);
         $this->host->method('getHost')->willReturn('foo.com');
         $this->host->method('getHostWithScheme')->willReturn('http://foo.com');
@@ -29,7 +29,7 @@ class SitemapTest extends TestCase
         $this->clearWebDir();
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         parent::tearDown();
         $this->clearWebDir();

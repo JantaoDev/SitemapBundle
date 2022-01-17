@@ -20,9 +20,9 @@ class SitemapServiceTest extends WebTestCase
     protected $eventDispatcher;
     protected $router;
     
-    protected function setUp()
+    protected function setUp():void
     {
-        $this->webDir = realpath(__DIR__.'/../web').'/';
+        $this->webDir = realpath(__DIR__ . '/../public').'/';
         static::createClient();
         $container  = static::$kernel->getContainer();
         $this->eventDispatcher = $container->get('event_dispatcher');
@@ -37,7 +37,7 @@ class SitemapServiceTest extends WebTestCase
         $this->clearWebDir();
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         parent::tearDown();
         $this->clearWebDir();

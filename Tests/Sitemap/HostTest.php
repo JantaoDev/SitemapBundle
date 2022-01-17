@@ -6,7 +6,7 @@
 
 namespace JantaoDev\SitemapBundle\Tests\Sitemap;
 
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use JantaoDev\SitemapBundle\Sitemap\Host;
 
 class HostTest extends TestCase

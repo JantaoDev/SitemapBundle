@@ -6,8 +6,10 @@
 
 namespace JantaoDev\SitemapBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use JantaoDev\SitemapBundle\EventListener\ConfigSitemapListener;
+use JantaoDev\SitemapBundle\Service\SitemapService;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -23,23 +25,30 @@ class JantaoDevSitemapExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $loader = new Loader\YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
+        );
+        $loader->load('services.yml');
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
-        
         $container->setParameter('jantao_dev_sitemap.hosts', $config['hosts']);
         $container->setParameter('jantao_dev_sitemap.web_dir', $config['web_dir']);
-        
-        $def = $container->getDefinition('jantao_dev.sitemap');
-        $def->replaceArgument(2, $config['hosts']);
-        $def->replaceArgument(3, $config['scheme']);
-        $def->replaceArgument(4, $config['port']);
-        $def->replaceArgument(5, $config['web_dir']);
-        $def->replaceArgument(6, $config['gzip']);
-        $def->replaceArgument(7, $config['robots']);
-        $def = $container->getDefinition('jantao_dev.sitemap.config_sitemap_listener');
-        $def->replaceArgument(2, $config['sitemap']);
+
+        $def = $container->getDefinition(SitemapService::class);
+        $def
+            ->setArguments([
+                '$hosts' => $config['hosts'],
+                '$scheme' => $config['scheme'],
+                '$port' => $config['port'],
+                '$webDir' => $config['web_dir'],
+                '$gzip' => $config['gzip'],
+                '$robots' => $config['robots'],
+            ]);
+
+        $def = $container->getDefinition(ConfigSitemapListener::class);
+        $def->setArgument('$sitemap', $config['sitemap']);
     }
 }

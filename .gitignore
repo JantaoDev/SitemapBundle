@@ -1,6 +1,9 @@
 Tests/app/cache/
 Tests/app/logs/
-Tests/web/*
-!Tests/web/.gitkeep
+Tests/public/*
+!Tests/public/.gitkeep
 composer.lock
 vendor/
+var/
+.idea
+.phpunit.result.cache

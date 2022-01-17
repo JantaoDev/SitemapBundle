@@ -11,7 +11,6 @@ use JantaoDev\SitemapBundle\Event\SitemapGenerateEvent;
 use Symfony\Component\Routing\RouterInterface;
 use JantaoDev\SitemapBundle\Sitemap\Url;
 use Doctrine\ORM\EntityManagerInterface;
-use JantaoDev\SitemapBundle\DoctrineIterator\DoctrineIterator;
 
 /**
  * Event listener allows you to specify sitemap in the configuration file app/config
@@ -103,7 +102,7 @@ class ConfigSitemapListener implements SitemapListenerInterface
             if ($configuration['iterator'] == 'array') {
                 $iterator = new \ArrayIterator($configuration['values']);
             } elseif ($configuration['iterator'] == 'doctrine') {
-                $iterator = new DoctrineIterator($this->entityManager->createQuery($configuration['query']));
+                $iterator = $this->entityManager->createQuery($configuration['query'])->toIterable();
             } else {
                 $iterator = new \EmptyIterator();
             }
@@ -122,21 +121,20 @@ class ConfigSitemapListener implements SitemapListenerInterface
      * @param object|array $item
      * @return Url
      */
-    protected function getUrlFromConfiguration($routeName, $configuration, $item = null)
+    protected function getUrlFromConfiguration(string $routeName, array $configuration, $item = null): Url
     {
         foreach ($configuration['route_parameters'] as $key=>$parameter) {
             $configuration['route_parameters'][$key] = $this->getItemParameter($item, $parameter);
         }
         
         $url = $this->router->generate($routeName, $configuration['route_parameters']);
-        
-        $urlObject = new Url(
-                $url,
-                (isset($configuration['last_mod']) ? $this->getItemParameter($item, $configuration['last_mod']) : null),
-                (isset($configuration['priority']) ? $this->getItemParameter($item, $configuration['priority']) : null),
-                (isset($configuration['change_freq']) ? $this->getItemParameter($item, $configuration['change_freq']) : null)
+
+        return new Url(
+            $url,
+            (isset($configuration['last_mod']) ? $this->getItemParameter($item, $configuration['last_mod']) : null),
+            (isset($configuration['priority']) ? $this->getItemParameter($item, $configuration['priority']) : null),
+            (isset($configuration['change_freq']) ? $this->getItemParameter($item, $configuration['change_freq']) : null)
         );
-        return $urlObject;
     }
 
 }

@@ -4,10 +4,9 @@
  * This file is part of the JantaoDevSitemapBundle package
  */
 
-namespace JantaoDev\SitemapBundle\Tests\Constroller;
+namespace JantaoDev\SitemapBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RobotsFileControllerTest extends WebTestCase
@@ -15,13 +14,13 @@ class RobotsFileControllerTest extends WebTestCase
     
     protected $webDir;
     
-    protected function setUp()
+    protected function setUp():void
     {
-        $this->webDir = realpath(__DIR__.'/../web').'/';
+        $this->webDir = realpath(__DIR__ . '/../public').'/';
         $this->clearWebDir();
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         parent::tearDown();
         $this->clearWebDir();
@@ -31,12 +30,9 @@ class RobotsFileControllerTest extends WebTestCase
     {
         $client = static::createClient();
         
-        try {
-            $client->request('GET', '/robots.txt');
-            $this->fail('Not found exception requred');
-        } catch (NotFoundHttpException $e) {
-        }
-        
+        $client->request('GET', '/robots.txt');
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+
         file_put_contents($this->webDir.'robots.txt', 'default');
         $client->request('GET', '/robots.txt');
         $this->assertInstanceOf(BinaryFileResponse::class, $client->getResponse());
@@ -49,11 +45,8 @@ class RobotsFileControllerTest extends WebTestCase
         $hosts  = static::$kernel->getContainer()->getParameter('jantao_dev_sitemap.hosts');
         
         foreach ($hosts as $host) {
-            try {
-                $client->request('GET', "http://$host/robots.txt");
-                $this->fail('Not found exception requred');
-            } catch (NotFoundHttpException $e) {
-            }
+            $client->request('GET', "http://$host/robots.txt");
+            $this->assertEquals(404, $client->getResponse()->getStatusCode());
             file_put_contents($this->webDir."robots.$host.txt", $host);
         }
         

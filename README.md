@@ -12,15 +12,15 @@ Features:
 
 Requirements:
 
-- PHP 7.1
-- Symfony 3
+- PHP 7.2
+- Symfony 5
 - Doctrine 2
 
 ## 1. Installation
 
 Run `composer require jantaodev/sitemap-bundle`.
 
-Register the bundle in the `app/AppKernel.php` file:
+Register the bundle in the `app/AppKernel.php` file (optional):
 
 ```php
 ...
@@ -419,7 +419,6 @@ services:
 TODO:
 
 - cover EventListener classes with tests
-- test with PHP 5.6, Symfony 2.8
 - add report on command
 
 ## 7. License

@@ -53,7 +53,7 @@ class RouteAnnotationListener implements SitemapListenerInterface
      * @return Url|null
      * @throws \InvalidArgumentException
      */
-    protected function getUrlFromRoute($name, Route $route)
+    protected function getUrlFromRoute(string $name, Route $route): ?Url
     {
         $option = $route->getOption('sitemap');
         
@@ -77,15 +77,13 @@ class RouteAnnotationListener implements SitemapListenerInterface
             return null;
         }
         $url = $this->router->generate($name);
-        
-        $urlObject = new Url(
-                $url,
-                (isset($option['lastMod']) ? $option['lastMod'] : null),
-                (isset($option['priority']) ? $option['priority'] : null),
-                (isset($option['changeFreq']) ? $option['changeFreq'] : null)
+
+        return new Url(
+            $url,
+            ($option['lastMod'] ?? null),
+            ($option['priority'] ?? null),
+            ($option['changeFreq'] ?? null)
         );
-        
-        return $urlObject;
     }
 
 }
